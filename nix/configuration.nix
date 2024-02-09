@@ -50,7 +50,8 @@
   services.flatpak.enable = true;
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
+  #Zram
+  zramSwap.enable = true;
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
@@ -113,9 +114,30 @@
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "yukendhiran";
+  
+  #Gaming
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  }; 
+  
+  
+  programs.java.enable = true; 
+
+  
+  programs.steam.gamescopeSession.enable = true;
+
 
   # Allow unfree packages
+
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.nvidia.acceptLicense = true;
+  #exception
+  nixpkgs.config.permittedInsecurePackages = [
+                "electron-19.1.9"
+		"openssl-1.1.1w"
+              ];
 
   fonts.packages = with pkgs; [
      noto-fonts
@@ -141,7 +163,25 @@
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
     stacer
+    codeium
+    sublime4
+    vimPlugins.codeium-vim
+    microsoft-edge
+    chromium
+    anydesk
     librewolf
+    bumblebee
+    glxinfo
+    ventoy-full
+    motrix
+    etcher
+    floorp
+    conda
+    jupyter
+    rustup
+    rustc
+    go
+    php
     zram-generator
     iucode-tool
     htop
@@ -250,6 +290,14 @@
 		 winetricks
 	       ];
 	    })
+         (retroarch.override {
+    cores = with libretro; [
+      genesis-plus-gx
+      snes9x
+      beetle-psx-hw
+    ];
+  })
+
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
