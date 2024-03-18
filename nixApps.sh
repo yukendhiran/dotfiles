@@ -26,3 +26,5 @@ nix-env  -iA \
 		nixpkgs.zsh\
 		nixpkgs.bat\
 		nixpkgs.dotnet-sdk_8\
+		nixpkgs.onlyoffice-bin\
+		firefox-devedition\
